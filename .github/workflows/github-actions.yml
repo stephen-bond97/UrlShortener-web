@@ -43,4 +43,4 @@ jobs:
           build_configuration: production
           base_href: /UrlShortener-web/
           deploy_branch: gh-pages
-          angular_dist_build_folder: dist/UrlShortener-web
+          angular_dist_build_folder: dist/url-shortener-web
