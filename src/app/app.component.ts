@@ -7,8 +7,9 @@ import { ShortenerService } from './services/ShortenerService';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public readonly URL_PATTERN = "[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)";
   public InputUrl = "";
+  public ShortUrl = "";
+  public showShortUrl = false;
 
   /**
    *
@@ -18,10 +19,20 @@ export class AppComponent {
   }
 
   public HandleShortUrlClick() {
-      this.service.ShortenUrl(this.InputUrl).subscribe((shortUrl) => this.handleUrlShortened(shortUrl));
+    this.service.ShortenUrl(this.InputUrl).subscribe((shortUrl) => this.handleUrlShortened(shortUrl));
   }
 
   private handleUrlShortened(shortUrl: string) {
-    console.log(shortUrl);
+    this.ShortUrl = `https://sbond-url-shortener.herokuapp.com/shortener/${shortUrl}`;
+    this.showShortUrl = true;
+  }
+
+  public copyToClipboard(input: HTMLInputElement, event: MouseEvent): void {
+    event.stopPropagation();
+
+    input.select();
+    document.execCommand('copy');
+    input.setSelectionRange(0, 0);
+    this.showShortUrl = false;
   }
 }

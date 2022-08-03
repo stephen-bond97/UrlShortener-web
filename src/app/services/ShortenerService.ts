@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class ShortenerService {
-    private url = "https://sbond-url-shortener.herokuapp.com/";
+    private url = "https://sbond-url-shortener.herokuapp.com/shortener/";
 
     public constructor(private http: HttpClient) {
 
@@ -16,9 +16,10 @@ export class ShortenerService {
         });
     }
 
-    private request<T>(params: any): Observable<T> {
-        return this.http.post(this.url, {
-            params: params
-        }) as Observable<T>;
+    private request<T>(params: any): Observable<string> {
+        return this.http.post(this.url, "",{
+            params: params,
+            responseType: "text"
+        }) as Observable<string>;
     }
 }
